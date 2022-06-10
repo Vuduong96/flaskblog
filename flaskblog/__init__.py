@@ -11,6 +11,8 @@ conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(confidential.dbuser, confidentia
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '43b2a30aa627f539c748cda0d7615d6a'
 app.config['SQLALCHEMY_DATABASE_URI'] = conn
+app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
+
 
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app) #app
