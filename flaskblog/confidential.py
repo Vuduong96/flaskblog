@@ -1,4 +1,4 @@
-dbhost = '####'
-dbuser = '####'
-dbpass = '####'
-dbname = '####'
+dbhost = '#####'
+dbuser = '#####'
+dbpass = '#####'
+dbname = '#####'
