@@ -19,6 +19,9 @@ class User(db.Model, UserMixin):
     # Relation one to many (1 author has multiple posts)
     posts = db.relationship('Post', backref='author', lazy=True) # Post attr has relationship with author model
 
+    #SET FOREIGN RELATIONSHIP
+    sentiments = db.relationship('Sentiment', backref='author', lazy=True) # sentiment attr has relationship with author model
+
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
@@ -45,3 +48,18 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}','{self.date_posted}')"
 
+
+# New Model
+class Sentiment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    topic = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    sentence = db.Column(db.Text, nullable=False)
+    score = db.Column(db.Float, nullable=True)
+    neg = db.Column(db.Float, nullable=True)
+    neu = db.Column(db.Float, nullable=True)
+    pos = db.Column(db.Float, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Sentiment('{self.topic}','{self.date_posted}')"

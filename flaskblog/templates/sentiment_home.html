@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for sentiment in sentiments.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + sentiment.author.image_file) }}"> 
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('users.user_posts', username=sentiment.author.username) }}">{{ sentiment.author.username }}</a>
+              <small class="text-muted">{{ sentiment.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('sentiments.sentiment', sentiment_id=sentiment.id) }}">{{ sentiment.topic }}</a></h2>
+            <p class="article-content">{{ sentiment.sentence }}</p>
+            {% if sentiment.neg!=0 %}
+                <h3 class="output">Negative😢😢</h3>
+            {% else %} 
+                <h3 class="output">Positive😁😁</h3>
+            {% endif %}
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in sentiments.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+      {% if sentiments.page == page_num %}  
+      <a class="btn btn-info mb-4" href="{{url_for('main.sentiment_home', page=page_num)}}" >{{ page_num }}</a>
+      {% else %}
+        <a class="btn btn-outline-info mb-4" href="{{url_for('main.sentiment_home', page=page_num)}}" >{{ page_num }}</a>
+      {% endif %}
+    {% else %}
+    ...
+    {% endif %}
+    {% endfor %}
+{% endblock content %}

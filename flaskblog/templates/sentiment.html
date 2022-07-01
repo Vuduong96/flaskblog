@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + sentiment.author.image_file) }}"> 
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('users.user_posts', username=sentiment.author.username) }}">{{ sentiment.author.username }}</a>
+              <small class="text-muted">{{ sentiment.date_posted.strftime('%Y-%m-%d') }}</small>
+              <!-- This is where delet and update post button were before-->
+            </div>
+            <h2 class="article-title">{{ sentiment.topic }}</h2>
+            <p class="article-content">{{ sentiment.sentence }}</p>
+          </div>
+        </article>
+        <h1 class="output">{{message}}</h1>
+        <!-- Modal -->
+{% endblock content %}

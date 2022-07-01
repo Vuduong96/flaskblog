@@ -33,10 +33,14 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
                 </li>
+                <li class="nav-item active">
+                  <a class="nav-item nav-link" href="{{ url_for('main.sentiment_home') }}">Sentiment HomePgae</a>
+              </li>
               </ul>
               <ul class="navbar-nav">
                 {% if current_user.is_authenticated %}
                   <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
+                  <a class="nav-item nav-link" href="{{ url_for('sentiments.new_sentiment') }}">Create Sentiment</a>
                   <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
                   <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
                 {% else %}
